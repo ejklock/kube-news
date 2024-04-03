@@ -1,0 +1,8 @@
+services:
+  nginx:
+    image: nginx
+    network_mode: host
+  curl:
+    image: nginx
+    extra_hosts:
+      aula_docker.localhost.com: 192.168.31.124

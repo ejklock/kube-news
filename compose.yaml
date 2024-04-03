@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:12.17
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=kubenews
+      - POSTGRES_USER=kubenews
+      - POSTGRES_PASSWORD=kubenews
+    volumes:
+      - postgres-vol:/var/lib/postgresql/data
+
+  kubenews:
+    depends_on:
+      - postgres
+    image: ejklock/kube-news:v1
+    ports:
+      - 8080:8080
+    environment:
+      - DB_PASSWORD=kubenews
+      - DB_USERNAME=kubenews
+      - DB_DATABASE=kubenews
+      - DB_HOST=postgres
+
+volumes:
+  postgres-vol:
+    name: kubenews_postgres_vol
